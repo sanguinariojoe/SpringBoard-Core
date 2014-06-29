@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Meta programming &mdash; Scenario Editor 0.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Scenario Editor 0.3 documentation" href="index.html" />
+    <link rel="prev" title="GUI Programming" href="gui_programming.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gui_programming.html" title="GUI Programming"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scenario Editor 0.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="meta-programming">
+<h1>Meta programming<a class="headerlink" href="#meta-programming" title="Permalink to this headline">¶</a></h1>
+<p>Meta programming consists of defining a meta model which is later used in GUI programming, and it provides a way of extending the Scenario Editor trigger functionality to suite a specfic game or scenario. This is done by creating meta model files that define custom action and function types.</p>
+<p>A metal model file has the following format:</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">return</span> <span class="p">{</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="c1">-- table (or Lua function that returns a table) consisting of action types</span>
+    <span class="n">functions</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="c1">-- table (or Lua function that returns a table) consisting of function types</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There&#8217;s a difference between a <em>Lua</em> function and a function type in the <em>meta model</em>. The <em>function type</em> represents a component in the meta model and is defined with a table.</p>
+</div>
+<div class="section" id="actions">
+<h2>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
+<p>Example of a meta programming file:</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">return</span> <span class="p">{</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">{</span>
+            <span class="n">humanName</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Hello world&quot;</span><span class="p">,</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">MY_HELLO_WORLD&quot;</span><span class="p">,</span>
+            <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+                <span class="n">Spring</span><span class="p">.</span><span class="n">Echo</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Hello world&quot;</span><span class="p">)</span>
+            <span class="k">end</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This file defines a single action. The <em>name</em> and <em>humanName</em> properties of the action define the machine (must be unique) and display name respectively. The <em>execute</em> property defines the function to be executed when the trigger is successfully fired. When used in the editor, this action would print a <em>Hello World</em> on the screen.</p>
+<p>It is common for actions to receive <em>input</em> that defines its behavior. One such example would be:</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">humanName</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Print unit position&quot;</span><span class="p">,</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">PRINT_UNIT_POSITION&quot;</span><span class="p">,</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unit&quot;</span><span class="p">,</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">Spring</span><span class="p">.</span><span class="n">GetUnitPosition</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">unit</span><span class="p">)</span>
+        <span class="n">Spring</span><span class="p">.</span><span class="n">Echo</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Unit position: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As one might guess, this action would take the specified <em>unit</em> as <em>input</em> and print out its position. The GUI editor will parse the input type and the user (GUI programmer) will be able to specify the unit when creating an instance of this action. Normally in Lua this would look like:</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="n">PRINT_UNIT_POSITION</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>The real power of the meta programming comes with the introduction of function types. Function types produce an output (result of the function), which often depends on the input.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Function types should not have a side effect (they shouldn&#8217;t cause any changes to the game state), but they don&#8217;t have to be pure (they don&#8217;t need to produce the same output for the same input).</p>
+</div>
+<p>Example of a function type:</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">humanName</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Unit Health&quot;</span><span class="p">,</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">UNIT_HEALTH&quot;</span><span class="p">,</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unit&quot;</span><span class="p">,</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">number&quot;</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Spring</span><span class="p">.</span><span class="n">GetUnitHealth</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">unit</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This function type takes a <em>unit</em> as <em>input</em> and produce a <em>number</em> as <em>output</em>. A special class of these function types are those that return <em>bool</em> as <em>output</em>, and they represent <em>conditions</em> in the GUI programming.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Meta programming</a><ul>
+<li><a class="reference internal" href="#actions">Actions</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gui_programming.html"
+                        title="previous chapter">GUI Programming</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/meta_programming.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gui_programming.html" title="GUI Programming"
+             >previous</a> |</li>
+        <li><a href="index.html">Scenario Editor 0.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Gajo Petrović.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
