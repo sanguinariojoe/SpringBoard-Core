@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Starting out &mdash; Scenario Editor 0.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Scenario Editor 0.3 documentation" href="index.html" />
+    <link rel="next" title="GUI Programming" href="gui_programming.html" />
+    <link rel="prev" title="Welcome to Scenario Editor’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gui_programming.html" title="GUI Programming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Scenario Editor’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Scenario Editor 0.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="starting-out">
+<h1>Starting out<a class="headerlink" href="#starting-out" title="Permalink to this headline">¶</a></h1>
+<p>The first thing we need to do before starting out is configure the environment in which we will run Scenario Editor.
+An example on how to do it is given with SpringLobby, but it should be doable with most Spring lobbies.</p>
+<p>First go to the <em>Singleplayer</em> tab and select a map and mod. In our example (Figure 1) we selected <em>Green Comet Basic</em> as the map, and <em>Scenario Editor BA</em> (Scenario Editor for Balanced Annihilation), version <em>0.2+</em> as the mod.
+The following should be done:</p>
+<ol class="arabic simple">
+<li>Add at least two NullAIs participating in the game. Avoid adding <em>real</em> Skirmish AIs as they might hinder your editing.</li>
+<li>Pick one of the Scenario Editor mods (mutators) configured for the game, and not the game itself. <em>Scenario Editor BA 0.2+</em> is correct, where <em>Balanced Annihilation v80</em> isn&#8217;t.</li>
+<li>Run it as a spectator by checking <em>Spectate only</em>.</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/mod_select.png"><img alt="_images/mod_select.png" src="_images/mod_select.png" style="width: 896.0px; height: 487.2px;" /></a>
+<p class="caption">Figure 1. Scenario editor mod selection</p>
+</div>
+<p>In addition, depending on the game in question, you might need to select a specific end condition (<em>Options</em> tab). In the case of <em>Scenario Editor BA</em>, this is done by selecting <em>None</em> for the <em>Game End Mode</em> as shown on Figure 2.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/mod_config.png"><img alt="_images/mod_config.png" src="_images/mod_config.png" style="width: 829.5px; height: 620.9px;" /></a>
+<p class="caption">Figure 2. Scenario editor mod config</p>
+</div>
+<p>With this all configured you can start editing!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Avoid running it in Multiplayer mode (even if it&#8217;s just a host bot), as Scenario Editor might cause extensive network usage, and not work properly.</p>
+</div>
+<div class="section" id="toolbox">
+<h2>Toolbox<a class="headerlink" href="#toolbox" title="Permalink to this headline">¶</a></h2>
+<p>Once you start the Scenario Editor you should see something similar to Figure 3.
+In the top right part of the UI you should see the <em>Scenario Toolbox</em>, or just <em>Toolbox</em> for short. You will use this component to do complete most operations within the editor.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/toolbox.png"><img alt="_images/toolbox.png" src="_images/toolbox.png" style="width: 1344.0px; height: 731.5px;" /></a>
+<p class="caption">Figure 3. Initial screen</p>
+</div>
+<p>Zooming in (Figure 4), we look at the components of the Toolbox in detail.
+Toolbox components are grouped in 5 categories that can be accessed in different tabs. Some of them also have <a class="reference internal" href="faq.html#hot-keys"><em>Hot keys</em></a>.</p>
+<p>Along side that, common actions such as <em>Undo, Redo, Reload meta model, Copy, Cut and Paste</em> are accessible from all tabs. <em>Reload meta model</em> action is likely the only which usage isn&#8217;t apparent, and will be described in the <a class="reference internal" href="meta_programming.html#meta-programming"><em>Meta programming</em></a> section.</p>
+<p>In the first tab, we can see access the components to do the following: Save, Save as, Load, Set project information and Export.</p>
+<div class="figure align-center">
+<img alt="_images/general_tab.png" src="_images/general_tab.png" />
+<p class="caption">Figure 4. General tab</p>
+</div>
+<p>The unit tab (Figure 5) is usually used to select and add units and features.</p>
+<div class="figure align-center">
+<img alt="_images/unit_tab.png" src="_images/unit_tab.png" />
+<p class="caption">Figure 5. Unit tab</p>
+</div>
+<p>The map tab (Figure 6) offers components for heightmap (terrain) and texturemap editing.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Texture map saving is currently not implemented and is currently just experimental.</p>
+</div>
+<div class="figure align-center">
+<img alt="_images/map_tab.png" src="_images/map_tab.png" />
+<p class="caption">Figure 6. Map tab</p>
+</div>
+<p>The trigger tab (Figure 7) provides components to program the scenario, and can be used to add areas, triggers and variables. This will be explained in detail in the <a class="reference internal" href="gui_programming.html#gui-programming"><em>GUI Programming</em></a> section.</p>
+<div class="figure align-center">
+<img alt="_images/trigger_tab.png" src="_images/trigger_tab.png" />
+<p class="caption">Figure 7. Trigger tab</p>
+</div>
+<p>The alliance tab (Figure 8) allows editing of players and alliances.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Any changes to the Players component that leads to new teams being added or old ones removed requires a restart of the game.</p>
+</div>
+<div class="figure align-center">
+<img alt="_images/alliance_tab.png" src="_images/alliance_tab.png" />
+<p class="caption">Figure 8. Alliance tab</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Starting out</a><ul>
+<li><a class="reference internal" href="#toolbox">Toolbox</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Scenario Editor&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gui_programming.html"
+                        title="next chapter">GUI Programming</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gui_programming.html" title="GUI Programming"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Scenario Editor’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Scenario Editor 0.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Gajo Petrović.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
