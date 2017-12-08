@@ -48,7 +48,6 @@ function LoadProjectCommandWidget:execute()
 
     local modelData = self:__LoadFile("model.lua")
     local heightmapData = self:__LoadFile("heightmap.data")
-    Log.Notice("#heightmapData = " .. #heightmapData)
     local guiState = self:__LoadFile("sb_gui.lua")
 
     -- Start loading the heightmap. The heightmap data can be quite large,
@@ -59,7 +58,6 @@ function LoadProjectCommandWidget:execute()
     local pieces = self:__SplitHeightmapData(heightmapData)
     local i, piece
     for i, piece in ipairs(pieces) do
-        Log.Notice("piece = " .. i .. " (" .. piece.x1 .. " - " .. piece.x2 .. ")")
         SB.commandManager:execute(LoadMapCommand(piece.heightmapData,
                                                  piece.x1, piece.x2,
                                                  piece.z1, piece.z2))
