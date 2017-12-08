@@ -47,13 +47,15 @@ function LoadProjectCommandWidget:execute()
     local heightmapData = self:__LoadFile("heightmap.data")
     local guiState = self:__LoadFile("sb_gui.lua")
 
-    local cmds = {LoadMapCommand(heightmapData), LoadModelCommand(modelData)}
+    -- local cmds = {LoadMapCommand(heightmapData), LoadModelCommand(modelData)}
+    local cmds = {LoadMapCommand(heightmapData)}
     if not hasScenarioFile and Spring.GetGameRulesParam("sb_gameMode") == "play" then
         table.insert(cmds, StartCommand())
     end
     local cmd = CompoundCommand(cmds)
     cmd.blockUndo = true
     SB.commandManager:execute(cmd)
+    SB.commandManager:execute(LoadModelCommand(modelData))
     SB.commandManager:execute(LoadTextureCommand(texturePath), true)
     SB.commandManager:execute(LoadGUIStateCommand(guiState), true)
 
