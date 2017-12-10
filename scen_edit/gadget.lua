@@ -96,10 +96,7 @@ function gadget:RecvLuaMsg(msg, playerID)
             local value = msg:sub(#(pre .. "|" .. op .. "|" .. par1 .. "|") + 1)
             msgParts[index] = value
             if #msgParts == msgPartsSize then
-                local fullMessage = ""
-                for _, part in pairs(msgParts) do
-                    fullMessage = fullMessage .. part
-                end
+                local fullMessage = table.concat(msgParts)
                 msgPartsSize = 0
                 msgParts = {}
 
