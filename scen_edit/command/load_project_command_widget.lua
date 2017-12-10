@@ -46,7 +46,7 @@ function LoadProjectCommandWidget:execute()
         texturePath = Path.Join(self.path, "texturemap/")
     end
 
-    local modelData = self:__LoadFile("model.lua")
+    local modelData = loadstring(self:__LoadFile("model.lua"))()
     local heightmapData = self:__LoadFile("heightmap.data")
     local guiState = self:__LoadFile("sb_gui.lua")
 
@@ -128,12 +128,11 @@ function LoadProjectCommandWidget:__LoadArchive(path)
 end
 
 function LoadProjectCommandWidget:__SplitHeightmapData(heightmapData)
-    local overhead = 128
     local nx = Game.mapSizeX / Game.squareSize
     local nz = Game.mapSizeZ / Game.squareSize
     local len = (nx + 1) * (nz + 1) * floatSize
     local n_pieces = 1
-    while len + overhead >= maxinteger do
+    while len >= maxinteger / 2 do
         n_pieces = n_pieces * 2
         nx = nx / 2
         len = (nx + 1) * (nz + 1) * floatSize
